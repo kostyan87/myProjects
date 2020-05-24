@@ -62,7 +62,7 @@ void ClearStringArray(char **str, int n)
     str=NULL;
 }
 
-int number_of_structures(FILE *df){
+int number_of_structures(FILE *df){  /*Подсчет кол-ва строк в файле */
 	int n=0;
 	char s1[MAXLEN];
     while((fgets(s1,MAXLEN,df))!=NULL) n++;
@@ -70,7 +70,7 @@ int number_of_structures(FILE *df){
     return n;
 }
 
-int slens(char *s1){
+int slens(char *s1){   /* Длина строки */
 	int slen;
 	slen=strlen(s1);
     s1[slen-1]='\0';
@@ -78,21 +78,21 @@ int slens(char *s1){
     return slen;
 }
 
-void print_header()
+void print_header()    /* Печать "головы" */
 {
     printf("|%3s |%20s|%20s|%4s|%6s|%4s|     %7s     |\n","Cup","Team",
 	"Country","Year","Budget","Capacity","average");
     printf("_______________________________________________________________________________________\n");
 }
 
-void struct_out(champions *ch)
+void struct_out(champions *ch) /* Вывод структуры */
 {
     printf("|%3d |%20s|%20s|%d|%5.1f |%5.3f  |%5.2f|%5.2f|%5.2f|\n",
         ch->number_of_titles,ch->team,ch->country,ch->year,ch->budget,ch->capacity,
 		ch->average[0],ch->average[1],ch->average[2]);
 }
 
-champions *struct_fill(char **str,Node *p)
+champions *struct_fill(char **str,Node *p) /* Заполнение структуры */
 {
     champions *str0=NULL;
 
@@ -113,7 +113,7 @@ champions *struct_fill(char **str,Node *p)
     return str0;
 }
 
-void print_struct(champions **ch,int lim){
+void print_struct(champions **ch,int lim){   /* Вывод массива структур */
 	int i;
 	print_header();
 	for (i=0;i<lim;i++) {
@@ -121,7 +121,7 @@ void print_struct(champions **ch,int lim){
 	}	
 }
 
-champions **fill(int n,FILE *df,Head *p0){
+champions **fill(int n,FILE *df,Head *p0){  /* Заполнение массива структур */
 	int i,count,slen;
 	char **s2=NULL,sep;
     char s1[MAXLEN];
