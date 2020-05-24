@@ -18,7 +18,7 @@ struct LHead {
 typedef struct LHead Head;
 typedef struct LNode Node; /* datatype for pointer to node */
 
-Head *make_head()
+Head *make_head() /* Создание головы списка */
 {
     Head *ph=NULL;
 
@@ -31,9 +31,9 @@ Head *make_head()
     return ph;
 }
 
-Node *create_node2(char *new_word, int slen) /* node initialization */
+Node *create_node2(char *new_word, int slen) /*Создание элемента списка */
 {
-   Node *new_node=NULL; /* pointer to new node */
+   Node *new_node=NULL;
    char *someword=NULL;
 
     new_node = (Node*)malloc(sizeof(Node));
@@ -42,19 +42,19 @@ Node *create_node2(char *new_word, int slen) /* node initialization */
     {
         strcpy(someword,new_word);
         new_node->word=someword;
-        new_node->prev = NULL;       /* previous node is absent */
-        new_node->next = NULL;       /*     next node is absent */
+        new_node->prev = NULL;  
+        new_node->next = NULL;
     }
     return new_node;  /* return of node address */
 }
 
-void add_first2(Head *my_head, Node *new_node) /* link head to first node */
+void add_first2(Head *my_head, Node *new_node) /* Добавление элемента в начало */
 {
     my_head->first = new_node;
     my_head->last = new_node;
 }
 
-void add_last2(Head *my_head, Node *new_node, Node *prev_node)
+void add_last2(Head *my_head, Node *new_node, Node *prev_node) /* Добавление элемента в конец */
 {
     if(my_head&&new_node&&prev_node)
     {
@@ -64,7 +64,7 @@ void add_last2(Head *my_head, Node *new_node, Node *prev_node)
     }
 }
 
-void insert_after2(Head *my_head, Node *new_node, Node *current_node)
+void insert_after2(Head *my_head, Node *new_node, Node *current_node) /* Вставка элемента после заданного */
 {
     int n;
     if(my_head&&new_node&&current_node)
@@ -84,31 +84,7 @@ void insert_after2(Head *my_head, Node *new_node, Node *current_node)
     }
 }
 
-void insert_before2(Head *my_head, Node *new_node, Node *current_node)
-{
-    Node *q=NULL;
-
-    if(my_head&&new_node&&current_node)
-    {
-        if(my_head->first==current_node)
-        {
-            new_node->next=current_node;
-            current_node->prev=new_node;
-            my_head->first=new_node;
-
-        }
-        else
-        {
-            q=current_node->prev;
-            new_node->next=current_node;
-            new_node->prev=q;
-            q->next=new_node;
-            current_node->prev=new_node;
-        }
-    }
-}
-
-Node *node_fill(Head *p0,int num,FILE *df){
+Node *node_fill(Head *p0,int num,FILE *df){  /* Заполнение списка */
     Node *p,*p1,*my_node=NULL;
     char my_word[MAXLEN];
     int slen,t;
@@ -136,7 +112,7 @@ Node *node_fill(Head *p0,int num,FILE *df){
     return p;
 }
 
-void print_node(Head *p0){
+void print_node(Head *p0){  /* Вывод списка */
 	Node *p;
 	p=p0->first;
     while(p!=NULL)
@@ -146,7 +122,7 @@ void print_node(Head *p0){
     }
 }
 
-void add_node(Head *p0,Node *p){
+void add_node(Head *p0,Node *p){ /*Добавление элемента списка */
 	Node *r=NULL;
 	char word1[MAXLEN],word2[MAXLEN];
 	int str2,str2_1;
@@ -164,7 +140,7 @@ void add_node(Head *p0,Node *p){
     else add_last2(p0,r,p);
 }
 
-void clean_node(Head *p0){
+void clean_node(Head *p0){ /* Очистка памяти списка */
 	Node *p,*p1;
 	p=p0->first;
     while(p!=NULL)
