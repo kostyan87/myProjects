@@ -1,49 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "node2.h"
+#include "struct.h"
 #define MAXLEN 128
 
 int main() {
-	Head *p0,*p02;
-    Node *p,*p2;
-    int i,t,num,*n,c;
-    FILE *df;
-    
-    df=fopen("team.csv","r");
-    if(df!=NULL){
-	
-	num=number_of_structures(df); /* Кол-во узлов в начальном списке */
-	
-    p0=make_head();               /* Создаем голову начального списка */
-	
-  	p=node_fill(p0,num,df);       /* Заполняем начальный список */
-  	
-  	puts("How many elements do you want to copy(<13)?");
-	scanf("%d",&t);
-	if ((n=(int*)malloc(t*sizeof(int)))!=NULL){
-       n=fill_mass(n,t);          /* Заполняем массив с номерами копируемых элементов */
-    }
-    else puts("data error");
-  	
-  	bubble_sort(n,t);			  /* Сортируем массив по возрастанию */
-	
-	if (t){
-		p02=make_head();		  /* Создаем голову нового списка */
-	
-		node_fill2(p0,p02,n,t);   /* Заполняем новый список */
-		
-		puts("\n");
-		
-		puts("New node:");
-	
-    	print_node2(p02,t);       /* Выводим новый список */
-    
-		clean_node2(p02,t);       /* Очищаем новый список */
-	}
-	else puts("You enter 0 elements");
-	
-	clean_node(p0);				  /* Очищаем старый список */
-	
+    champions **ch=NULL;
+    Head *p0;
+    Node *p;
+    int slen,i,n;
+    char **s2=NULL;
+    char s1[MAXLEN];
+    FILE *df,*df2;
+
+    df=fopen("champions_cup_winners.csv","r");
+	df2=fopen("team.csv","r");
+    if((df!=NULL)&&(df2!=NULL))
+    {
+	    n=number_of_structures(df); /* РџРѕРґСЃС‡РµС‚ РєРѕР»-РІР° СЃС‚СЂРѕРє РІ С„Р°Р№Р»Рµ */
+	    
+        p0=make_head();             /* РЎРѕР·РґР°РЅРёРµ РґРІСѓСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР° */
+        p=node_fill(p0,n,df2);
+        
+        puts("Initial array:");
+        ch=fill(n,df,p0);           /* Р—Р°РїРѕР»РЅРµРЅРёРµ РјР°СЃСЃРёРІР° СЃС‚СЂСѓРєС‚СѓСЂ(РІ С‚РѕРј С‡РёСЃР»Рµ СЌР»РµРјРµРЅС‚Р°РјРё РґРІСѓСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР°) */
+        
+        print_struct(ch,n);         /* Р’С‹РІРѕРґ РјР°СЃСЃРёРІР° СЃС‚СЂСѓРєС‚СѓСЂ */
+        
+        puts("---------------------------------------------------------------------------------------");
+        add_node(p0,p);             /* Р”РѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РІ РґРІСѓСЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє */
+        puts("---------------------------------------------------------------------------------------");
+        puts("New Node:");
+        print_node(p0);             /* Р’С‹РІРѕРґ РЅРѕРІРѕРіРѕ РґРІСѓСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР° */
+        
+        fclose(df);
+        fclose(df2);
+        
+        ClearStringArray(ch,12); /* РћС‡РёСЃС‚РєР° РјР°СЃСЃРёРІР° СЃС‚СЂСѓРєС‚СѓСЂ */
+        clean_node(p0);             /* РћС‡РёСЃС‚РєР° СЃРїРёСЃРєР° */
     }
     else puts("File not found!");
 	return 0;
